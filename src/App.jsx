@@ -1,48 +1,48 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import jikanGet from './jikanAPI.js'
-import characterList from './list.js'
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import jikanGet from './jikanAPI.js';
+import characterList from './list.js';
 
 function App() {
-  let list = characterList;
+  const [urlList, setUrlList] = useState([]);
 
-  // populate the url field for each character from the API
-  for (let i = 0; i < list.length; i++) {
-    console.log("get pictures urls for", list[i].name);
-    useEffect(() => {
-      async function startFetching() {
-        const result = await jikanGet(list[i].id);
-        if (!ignore) {
-          console.log(i, list[i].url);
-          list[i].url = result;
-          console.log(i, list[i].url);
-        }
-      }
+  useEffect(() => {
+    async function fetchData() {
+      const urls = await Promise.all(
+        characterList.map(async character => {
+          const result = await jikanGet(character.id);
+          // get first URL
+          return result[0].jpg.image_url;
 
-      let ignore = false;
-      startFetching();
-      return () => {
-        ignore = true;
-      }
-    }, []);
+          // If I want a random image from the set, I'll need to find out how many images I have using:
+          //console.log("len", result.length);
+        })
+      );
+      setUrlList(urls);
+    }
+    fetchData();
+  }, []);
+
+  const handler = function(e) {
+    console.log(e.currentTarget.getAttribute("data-name"));
   }
 
-  const renderCards = list.map(character =>
-    <div className='card' key={character.id}>
+  const renderCards = characterList.map((character, index) => (
+    <div className='card' onClick={handler} key={character.id} data-name={character.name}>
       {character.name}
-      <br></br>
-      {character.id}
-      <br></br>
-      {character.url}
-      {/* image from url here. I'll probably need a new <div> or something*/}
-      </div>
-  );
-  
+      <br />
+      {/* Display the URL from urlList */}
+      <img src={urlList[index]}></img>
+    </div>
+  ));
+
   return (
-    <>
-     {renderCards}
-    </>
+  <>
+    <div id='cardContain'>
+      {renderCards}
+    </div>
+  </>
   )
 }
 
-export default App
+export default App;

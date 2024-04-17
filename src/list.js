@@ -9,11 +9,11 @@ let characterList = [
     id: 46496,
     url: "placeholder"
   },
-  // {
-  //   name: "Satoru Gojou",
-  //   id: 164471,
-  //   url: ""
-  // }
+  {
+    name: "Satoru Gojou",
+    id: 164471,
+    url: ""
+  }
 ]
 
 export default characterList
