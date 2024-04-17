@@ -1,29 +1,12 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import jikanGet from './jikanAPI'
+import jikanGet from './jikanAPI.js'
+import characterList from './list.js'
 
 function App() {
-  // const [count, setCount] = useState(0)
-  let list = [
-    {
-      name: "Alphonse Elric",
-      id: 12,
-      url: "placeholder"
-    },
-    {
-      name: "Erwin Smith",
-      id: 46496,
-      url: "placeholder"
-    },
-    // {
-    //   name: "Satoru Gojou",
-    //   id: 164471,
-    //   url: ""
-    // }
-  ]
+  let list = characterList;
 
-  // populate the url field for each character
-  //might need to useEffect/useState here
+  // populate the url field for each character from the API
   for (let i = 0; i < list.length; i++) {
     console.log("get pictures urls for", list[i].name);
     useEffect(() => {
@@ -42,7 +25,7 @@ function App() {
         ignore = true;
       }
     }, []);
-  }  
+  }
 
   const renderCards = list.map(character =>
     <div className='card' key={character.id}>
@@ -51,7 +34,7 @@ function App() {
       {character.id}
       <br></br>
       {character.url}
-      {/* image from url here */}
+      {/* image from url here. I'll probably need a new <div> or something*/}
       </div>
   );
   

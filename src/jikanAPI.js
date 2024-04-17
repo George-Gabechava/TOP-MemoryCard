@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-
 // API Website: https://jikan.moe/ 
 
 function jikanGet(characterID, pictureIndex) {
