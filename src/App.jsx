@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import jikanGet from './jikanAPI.js';
 import {characterList, shuffleList} from './list.js';
-import timeout from './timeout.js';
+import delay from './timeout.js';
 
 function App() {
   const [urlList, setUrlList] = useState([]);
@@ -14,30 +14,28 @@ function App() {
   let newShuffle = shuffleList(characterList);
 
   useEffect(() => {
-    async function fetchData() {
-      const urls = await Promise.all(
-        newShuffle.map(async character => {
-          await timeout(500);
-          const result = await jikanGet(character.id);
-
-          // place URLs in characterlist
-          let currentCharacter = newShuffle.find(char => char.id === character.id);
-          currentCharacter.urlList = result;
-
-          // place first url in list
-          currentCharacter.firstUrl = result[0].jpg.image_url;
-
-          // place random url in list
-          let randomUrlIndex = Math.floor(Math.random()*result.length);
-          currentCharacter.randomUrl = result[randomUrlIndex].jpg.image_url;
-        
-          // If I want a random image from the set, I'll need to find out how many images I have using:
-        })
-      );
+    // Add a delay before setting the URL list state
+    const fetchUrlList = async () => {
+      const urls = [];
+      for (const character of newShuffle) {
+        const result = await jikanGet(character.id);
+        urls.push(result);
+        // place URLs in characterlist
+        let currentCharacter = newShuffle.find(char => char.id === character.id);
+        currentCharacter.urlList = result;
+        // place first url in list
+        currentCharacter.firstUrl = result[0].jpg.image_url;
+        // place random url in list
+        let randomUrlIndex = Math.floor(Math.random()*result.length);
+        currentCharacter.randomUrl = result[randomUrlIndex].jpg.image_url;
+        // Add a delay between each request due to API request limitations
+        await delay(500);
+      }
       setUrlList(urls);
-    }
-    fetchData();
+    };
+    fetchUrlList();
   }, []);
+  
 
   function randomizeImages() {
     console.log("click");
