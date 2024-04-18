@@ -1,4 +1,4 @@
-let characterList = [
+export let characterList = [
   {
     name: "Alphonse Elric",
     id: 12,
@@ -16,4 +16,18 @@ let characterList = [
   }
 ]
 
-export default characterList
+export function shuffleList(array) {
+  let result = [];
+  let characterListCopy = [...array];
+  let itemsToSort = characterListCopy.length;
+
+  while (itemsToSort > 0) {
+    let randomItem = Math.floor(Math.random()*itemsToSort);
+    result.push(characterListCopy[randomItem]);
+    itemsToSort = itemsToSort -1;
+    characterListCopy.splice(randomItem, 1);
+  }
+  return result;
+}
+
+// export let shuffledList = shuffle(characterList);
