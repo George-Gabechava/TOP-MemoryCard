@@ -3,21 +3,108 @@
 #root {
   max-width: 100vw;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+
+  align-items: center;
 }
 
 #cardContain {
+  width: 90%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap:20px;
+  grid-template-columns: repeat(2, minmax(10px, 1fr));
+  grid-gap:10px;
+
+  align-items: center;
+  justify-items: center;
 }
 
 .card {
+  width: 100%;
+  padding: 25px;
 }
 
+.card:hover {
+  background-color: orangered;
+}
 
-/* @keyframes  */
+img {
+  object-fit: fill;
+  width: 100%;
+}
 
-/* @media  */
+button {
+  width: 200px;
+  height: 110px;
+  border: solid 2px black;
+  border-radius: 10px;
+  box-shadow: 2px 3px orange;
+  background-color: orangered;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  
+  text-align: center;
+}
 
+button:hover {background-color: red}
+
+button:active {
+  background-color: lightcoral;
+  box-shadow: 2px 1px orange;
+  transform: translateY(3px);
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+footer {
+  width: 100%;
+  background-color: #595959;
+}
+
+footer a:link {
+  color: orange;
+}
+
+footer a:visited {
+  color: orangered;
+}
+
+/* Tablet Screen Size*/
+@media (min-width: 500px) {
+  #cardContain {  
+    grid-template-columns: repeat(4, minmax(10px, 1fr));
+    grid-gap:20px;
+  }
+
+  #headContain {
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+
+/* Desktop Screen Size*/
+@media (min-width: 1000px) {
+  #cardContain {  
+    grid-template-columns: repeat(6, minmax(10px, 1fr));
+    grid-gap: 50px;
+  }
+
+  #root {
+    height: 100vh;
+  }
+}

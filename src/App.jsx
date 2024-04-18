@@ -11,7 +11,7 @@ function App() {
   const [highScore, setHighScore] = useState(0);
 
   let newShuffle = shuffleList(characterList);
-  
+
   useEffect(() => {
     async function fetchData() {
       const urls = await Promise.all(
@@ -21,21 +21,32 @@ function App() {
           // place URLs in characterlist
           let currentCharacter = newShuffle.find(char => char.id === character.id);
           currentCharacter.urlList = result;
-          currentCharacter.url = result[0].jpg.image_url;
-          console.log(currentCharacter);
 
+          // place first url in list
+          currentCharacter.firstUrl = result[0].jpg.image_url;
 
-          // get first URL
-          return result[0].jpg.image_url;
-
+          // place random url in list
+          let randomUrlIndex = Math.floor(Math.random()*result.length);
+          currentCharacter.randomUrl = result[randomUrlIndex].jpg.image_url;
+        
           // If I want a random image from the set, I'll need to find out how many images I have using:
-          //console.log("len", result.length);
         })
       );
       setUrlList(urls);
     }
     fetchData();
   }, []);
+
+  function randomizeImages() {
+    console.log("click");
+    // place random url in list
+    for (var i in newShuffle) {
+      let currentCharacter = newShuffle[i];
+      let randomUrlIndex = Math.floor(Math.random()*currentCharacter.urlList.length);
+      currentCharacter.randomUrl = currentCharacter.urlList[randomUrlIndex].jpg.image_url;
+    }
+    setUrlList([]);    
+  }
 
   const handler = function(e) {
     const clickedName = e.currentTarget.getAttribute("data-name");
@@ -52,32 +63,37 @@ function App() {
     }
     setScore(prevScore => prevScore + 1);
     setClickedList(clickedList => [...clickedList, clickedName])
-    console.log(clickedList, "score:", currentScore); // seems to be 1 action behind
 
     // Function to randomly shuffle the rendering order of cards after every click
     newShuffle = shuffleList(characterList);
-    console.log(newShuffle);
   }
 
   let renderCards = newShuffle.map((character) => (
     <div className='card' onClick={handler} key={character.id} data-name={character.name}>
-      {character.name}
-      <br />
+      <h4>{character.name}</h4>
       {/* Display the URL from urlList */}
-      <img src={character.url}></img>
+      <img src={character.randomUrl}></img>
     </div>
   ));
 
   return (
   <>
+    <div id='headContain'>
+    <button onClick={randomizeImages}>Randomize Images!</button>
     <div>
       <h2>Current Score: {currentScore}</h2>
       
       <h3>High Score: {highScore}</h3>
     </div>
+    </div>
     <div id='cardContain'>
       {renderCards}
     </div>
+    <footer>
+      <p> Author: <a href="https://github.com/George-Gabechava">George Gabechava</a></p>
+      <p> <a href="https://github.com/George-Gabechava/TOP-MemoryCard">Source Code</a></p>
+      <p> Powered by <a href="https://jikan.moe/">Jikan API</a></p>
+    </footer>
   </>
   )
 }

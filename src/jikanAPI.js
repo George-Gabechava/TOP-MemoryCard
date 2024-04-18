@@ -10,13 +10,11 @@ function jikanGet(characterID, pictureIndex) {
       return response.json();
     })
     .then(data => {
-      console.log("jikanGet", data.data);
       return data.data;
     })
     .catch(error => {
       console.error('Error fetching data:', error);
         throw new Error("Error", error);
-
     });
 }
 
