@@ -29,7 +29,7 @@ function App() {
         let randomUrlIndex = Math.floor(Math.random()*result.length);
         currentCharacter.randomUrl = result[randomUrlIndex].jpg.image_url;
         // Add a delay between each request due to API request limitations
-        await delay(500);
+        await delay(1000);
       }
       setUrlList(urls);
     };

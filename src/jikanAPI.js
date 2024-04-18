@@ -1,4 +1,4 @@
-function jikanGet(characterID, pictureIndex) {
+function jikanGet(characterID) {
   let url = 'https://api.jikan.moe/v4/characters/' + characterID + '/pictures';
   
   // Return a promise
