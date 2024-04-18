@@ -85,7 +85,7 @@ footer a:visited {
 /* Tablet Screen Size*/
 @media (min-width: 500px) {
   #cardContain {  
-    grid-template-columns: repeat(4, minmax(10px, 1fr));
+    grid-template-columns: repeat(3, minmax(10px, 1fr));
     grid-gap:20px;
   }
 
@@ -100,11 +100,7 @@ footer a:visited {
 /* Desktop Screen Size*/
 @media (min-width: 1000px) {
   #cardContain {  
-    grid-template-columns: repeat(6, minmax(10px, 1fr));
+    grid-template-columns: repeat(5, minmax(10px, 1fr));
     grid-gap: 50px;
-  }
-
-  #root {
-    height: 100vh;
   }
 }

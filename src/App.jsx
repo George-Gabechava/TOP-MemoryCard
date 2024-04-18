@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import jikanGet from './jikanAPI.js';
 import {characterList, shuffleList} from './list.js';
+import timeout from './timeout.js';
 
 function App() {
   const [urlList, setUrlList] = useState([]);
@@ -16,6 +17,7 @@ function App() {
     async function fetchData() {
       const urls = await Promise.all(
         newShuffle.map(async character => {
+          await timeout(500);
           const result = await jikanGet(character.id);
 
           // place URLs in characterlist
