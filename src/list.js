@@ -28,8 +28,16 @@ export let characterList = [
     id: 111739,
   },
   {
+    name: "Pochita",
+    id: 174750,
+  },
+  {
     name: "Jet Black",
     id: 3,
+  },
+  {
+    name: "Pack",
+    id: 137541,
   },
   {
     name: "Tet",

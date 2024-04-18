@@ -7,7 +7,7 @@ function jikanGet(characterID) {
       if (!response.ok) {
         return(response.statusText);
       }
-      console.log(characterID);
+      console.log("getting character", characterID);
       return response.json();
     })
     .then(data => {

@@ -80,6 +80,7 @@ function App() {
   <>
     <div id='headContain'>
     <button onClick={randomizeImages}>Randomize Images!</button>
+    <h4>(Please allow 12 seconds for the API to get the images)</h4>
     <div>
       <h2>Current Score: {currentScore}</h2>
       
